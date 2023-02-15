@@ -3,7 +3,8 @@ const sauce = require("../models/sauce");
 const fs = require("fs");
 
 exports.createsauce = (req, res, next) => {
-  const sauceObject = JSON.parse(req.body.sauce);
+  console.log (req.body)
+  const sauceObject = JSON.parse(req.body);
   delete sauceObject._id;
   delete sauceObject._userId;
   const sauce = new sauce({

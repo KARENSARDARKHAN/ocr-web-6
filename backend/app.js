@@ -1,14 +1,9 @@
 const express = require("express");
-
 const mongoose = require("mongoose");
-
-const sauce = require("./models/sauce");
+const path = require("path");
 
 const sauceRoutes = require("./routes/sauce");
-
 const userRoutes = require("./routes/user");
-
-const path = require("path");
 
 const app = express();
 
@@ -41,4 +36,3 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
 
-/**mongodb+srv://khnkaren:13131313Kk@cluster0.cm34v0j.mongodb.net/?retryWrites=true&w=majority */
