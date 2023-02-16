@@ -94,7 +94,7 @@ exports.deletesauce = (req, res, next) => {
     });
 };
 
-exports.getAllsauce = (req, res, next) => {
+exports.getAllsauces = (req, res, next) => {
   sauce
     .find()
     .then((sauces) => {

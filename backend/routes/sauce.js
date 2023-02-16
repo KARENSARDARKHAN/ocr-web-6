@@ -7,9 +7,10 @@ const multer = require("../middleware/multer-config");
 
 const sauceCtrl = require("../controllers/sauce");
 
-router.get("/", auth, sauceCtrl.getAllsauce);
-router.post("/", auth, multer, sauceCtrl.createsauce);
+router.get("/", auth, sauceCtrl.getAllsauces);
 router.get("/:id", auth, sauceCtrl.getOnesauce);
+
+router.post("/sauces", auth, multer, sauceCtrl.createsauce);
 router.put("/:id", auth, multer, sauceCtrl.modifysauce);
 router.delete("/:id", auth, sauceCtrl.deletesauce);
 
