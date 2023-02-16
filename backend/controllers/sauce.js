@@ -1,32 +1,26 @@
-const sauce = require("../models/sauce");
+const Sauce = require("../models/sauce");
 
 const fs = require("fs");
 
-exports.createsauce = (req, res, next) => {
-  console.log (req.body)
-  const sauceObject = JSON.parse(req.body);
+exports.createSauce = (req, res, next) => {
+  const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
-  delete sauceObject._userId;
-  const sauce = new sauce({
+  const sauce = new Sauce({
+    // un nouvel objet sauce est crée avec le model Sauce
     ...sauceObject,
-    userId: req.auth.userId,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
-    }`,
+    }`, // l'url de l'image enregistrée dans le dossier images du serveur est aussi stockée dans la bdd
   });
-
   sauce
-    .save()
-    .then(() => {
-      res.status(201).json({ message: "Objet enregistré !" });
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
-    });
+    .save() // la sauce est sauvegardée dans la bdd
+    .then(() => res.status(201).json({ message: "Sauce sauvegardée" }))
+    .catch((error) => res.status(400).json({ error }));
+  console.log(sauce);
 };
 
 exports.getOnesauce = (req, res, next) => {
-  sauce
+  Sauce
     .findOne({
       _id: req.params.id,
     })
@@ -95,7 +89,7 @@ exports.deletesauce = (req, res, next) => {
 };
 
 exports.getAllsauces = (req, res, next) => {
-  sauce
+  Sauce
     .find()
     .then((sauces) => {
       res.status(200).json(sauces);
