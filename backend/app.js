@@ -7,11 +7,13 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
+//mongoose.set('strictQuery', false);
+//mongoose.set("strictQuery", true);
+
 mongoose
   .connect(
     "mongodb+srv://khnkaren:13131313Kk@cluster0.cm34v0j.mongodb.net/?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+    { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
