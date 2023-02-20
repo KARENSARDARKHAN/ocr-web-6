@@ -13,8 +13,7 @@ const app = express();
 //mongoose.set("strictQuery", true);
 
 mongoose
-  .connect(
-    "mongodb+srv://khnkaren:13131313Kk@cluster0.cm34v0j.mongodb.net/?retryWrites=true&w=majority",
+  .connect( process.env.MONGO,
     { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
