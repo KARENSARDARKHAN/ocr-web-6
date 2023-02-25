@@ -6,17 +6,26 @@ exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   const sauce = new Sauce({
-    // un nouvel objet sauce est crée avec le model Sauce
     ...sauceObject,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
-    }`, // l'url de l'image enregistrée dans le dossier images du serveur est aussi stockée dans la bdd
+    }`, 
   });
   sauce
-    .save() // la sauce est sauvegardée dans la bdd
+    .save() 
     .then(() => res.status(201).json({ message: "Sauce sauvegardée" }))
     .catch((error) => res.status(400).json({ error }));
   console.log(sauce);
+};
+
+exports.getAllsauces = (req, res, next) => {
+  Sauce.find()
+    .then((sauces) => {
+      res.status(200).json(sauces);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error });
+    });
 };
 
 exports.getOnesauce = (req, res, next) => {
@@ -85,17 +94,6 @@ exports.deletesauce = (req, res, next) => {
     })
     .catch((error) => {
       res.status(500).json({ error });
-    });
-};
-
-exports.getAllsauces = (req, res, next) => {
-  Sauce
-    .find()
-    .then((sauces) => {
-      res.status(200).json(sauces);
-    })
-    .catch((error) => {
-      res.status(400).json({ error: error });
     });
 };
 
